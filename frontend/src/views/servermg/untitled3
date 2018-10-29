@@ -1,0 +1,124 @@
+
+
+hostnamectl set-hostname pe-d-025004
+
+ */1 * * * * cd  /usr/install/netmonitor/bin  && sudo sh start.sh &>/dev/null
+
+
+ mtr  traceroute
+
+
+1、设置主机名
+hostnamectl set-hostname  openstackhost
+2、关闭selinux
+setenforce 0
+sed -i "s/SELINUX=enforcing/SELINUX=disabled/g"  /etc/selinux/config
+3关闭防火墙
+systemctl stop firewalld
+systemctl disable firewalld
+systemctl stop NetworkManage
+systemctl disable NetworkManager
+
+yum install -y https://www.rdoproject.org/repos/rdo-release.rpm
+yum install -y openstack-packstack
+packstack --gen-answer-file=/root/answer.txt
+
+packstack --answer-file /root/answer.txt
+packstack --allinone
+
+glance image-create --name "cirros-0.3.3-x86_64" --file /root/cirros-0.3.3-x86_64-disk.img \
+--disk-format qcow2 --container-format bare --progress
+
+
+
+
+
+
+virsh --connect qemu://system migrate  --live --copy-storage-all --persistent --undefinesource openstackhost3  qemu+ssh://10.57.31.240/system
+
+
+
+
+
+
+
+cobbler profile add --name=Install_CentOS_7.4_sda_sdb_data --distro=Install_CentOS_7.4-x86_64 --kickstart=/var/lib/cobbler/kickstarts/Install_CentOS_7.4_sda_sdb_data.ks
+
+
+
+
+
+
+
+
+
+
+if  [ !  -d $dest_name ];then
+	mkdir   -p   $dest_name
+
+#!/bin/bash
+DISK=vdb
+Dest_name=/data
+
+mkfs.xfs -f /dev/$DISK
+
+if  [ !  -d $Dest_name ];then
+	mkdir   -p   $Dest_name
+	 UUID=`ls -l /dev/disk/by-uuid|grep $DISK|awk '{print $9}'`
+    if [ $UUID"x" != "x" ];then
+    cat >>/etc/fstab<<EOF
+	UUID=$UUID  /data                  xfs    defaults        0 0
+EOF
+else
+	 UUID=`ls -l /dev/disk/by-uuid|grep $DISK|awk '{print $9}'`
+   if [ $UUID"x" != "x" ];then
+    cat >>/etc/fstab<<EOF
+UUID=$UUID  /data                  xfs    defaults        0 0
+EOF
+
+
+if [ $? -eq 0 ];then
+    #mv /opt /opt_bak
+    mkdir -p /data
+    mount /dev/$DISK /data
+    #cp -r /opt_bak/* /data
+    UUID=`ls -l /dev/disk/by-uuid|grep $DISK|awk '{print $9}'`
+    if [ $UUID"x" != "x" ];then
+    cat >>/etc/fstab<<EOF
+UUID=$UUID  /data                  xfs    defaults        0 0
+EOF
+    else
+        echo "get disk uuid fail"
+    fi
+else
+    echo "mkfs disk fail"
+fi
+mount -a
+df -lh
+
+
+mysqlslap --uroot --engine=innodb  \
+--auto-generate-sql-unique-query-number=100 --auto-generate-sql-unique-write-number=100 --auto-generate- sql-write-number=1000 \
+--create-schema=test --auto-generate-sql-load-type=mixed --concurrency=10,100 --number-of-queries=1000 --iterations=1 \
+--number-char- cols=1 --number-int-cols=8 --auto-generate-sql-secondary-indexes=1 --debug-info --verbose
+
+
+
+
+sysbench --db-driver=mysql --mysql-user=root --mysql-password='' \
+  --mysql-db=test --range_size=100 \
+  --table_size=10000 --tables=4 --threads=10 --events=0 --time=60 \
+  --rand-type=uniform  /usr/local/share/sysbench//oltp_read_only.lua prepare
+
+
+
+
+
+
+sysbench --db-driver=mysql --mysql-user=root --mysql-password='' \
+  --mysql-db=test --range_size=100 \
+  --table_size=10000 --tables=4 --threads=10 --events=0 --time=60 \
+  --rand-type=uniform  /usr/local/share/sysbench//oltp_read_only.lua run 
+
+
+

@@ -1,0 +1,221 @@
+
+
+curl http://10.57.17.7/script/motd -O -s
+cd /opt/
+curl http://10.57.17.7/script/system-initialization.sh -O && sh system-initialization.sh;rm system-initialization.sh
+curl http://10.57.17.7/script/reinforce_safety_old.sh -O && sh reinforce_safety_old.sh;rm reinforce_safety_old.sh
+curl http://10.57.17.7/script/sshd_config.sh -O && sh sshd_config.sh;rm sshd_config.sh
+curl http://10.57.17.7/script/update-tdseckey-ntp.sh -O && sh update-tdseckey-ntp.sh;rm update-tdseckey-ntp.sh
+
+curl http://10.57.17.7/script/nic.sh -O && sh nic.sh;rm nic.sh
+curl http://10.57.17.7.4/script/install_salt.sh -O && sh install_salt.sh;rm install_salt.sh
+
+curl http://10.57.17.7/script/nic_bond_config.sh -O && sh nic_bond_config.sh;rm nic_bond_config.sh
+
+
+
+
+
+host_ip  = models.CharField(max_length=500, verbose_name='主机IP')
+host_sn  = models.CharField(max_length=500, verbose_name='主机型号')
+host_category  = models.CharField(max_length=500, verbose_name='机型')
+host_product  = models.CharField(max_length=500, verbose_name='厂商名称')
+host_info    =  models.CharField(max_length=500, verbose_name='配置')
+add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+
+
+
+
+from django.db import models
+
+from datetime import datetime
+# Create your models here.
+class Pcinfo(models.Model):
+	host_ip = models.CharField(max_length=500, verbose_name='主机IP')
+	host_sn = models.CharField(max_length=500, verbose_name='SN编号')
+	host_category = models.CharField(max_length=500, verbose_name='机型')
+	host_product = models.CharField(max_length=500, verbose_name='厂商名称')
+	host_room = models.CharField(default="下沙机房",max_length=500, verbose_name='机房')
+	host_cabinet =models.CharField(default="F05-B12",max_length=500, verbose_name='机柜')
+	host_number  =models.IntegerField(default=0,verbose_name='U位')
+	host_info = models.CharField(max_length=500, verbose_name='配置')
+	add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+	
+	class Meta:
+		verbose_name = '主机信息'
+		verbose_name_plural = verbose_name
+
+from django.contrib import admin
+from   .models import Pcinfo
+
+# Register your models here.
+admin.site.site_header = '硬件管理系统'
+admin.site.site_title = 'DBMS'
+
+class PcinfoAdmin(admin.ModelAdmin):
+	list_display = ['id','host_ip', 'host_sn','host_room','host_cabinet','host_number','host_category','host_product','add_time']
+admin.site.register(Pcinfo,PcinfoAdmin)
+
+from django.apps import AppConfig
+
+class PcinfoConfig(AppConfig):
+    name = 'pcinfo'
+    verbose_name = "主机管理"
+
+    host_ip = models.CharField(max_length=500, verbose_name='主机IP')
+	host_sn = models.CharField(max_length=500, verbose_name='SN编号')
+	host_category = models.CharField(max_length=500, verbose_name='机型')
+	host_product = models.CharField(max_length=500, verbose_name='厂商名称')
+	host_room = models.CharField(default="下沙机房",max_length=500, verbose_name='机房')
+	host_cabinet =models.CharField(default="F05-B12",max_length=500, verbose_name='机柜')
+	host_number  =models.IntegerField(default=0,verbose_name='U位')
+	host_info = models.CharField(max_length=500, verbose_name='配置')
+	add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+
+	idc_name = models.CharField(max_length=50, verbose_name='机房名称')
+	idc_address = models.CharField(max_length=50, verbose_name='机房地址')
+	idc_tag  = models.CharField(max_length=50, verbose_name='机房标识符')
+	idc_leader = models.CharField(max_length=50, verbose_name='机房负责人')
+	idc_leader_phone = models.CharField(max_length=50, verbose_name='机房负责人联系方式')
+	idc_desc = models.CharField(max_length=50, verbose_name='备注')
+
+class  Server_problem(model.Models):
+	host_ip = models.CharField(max_length=50, verbose_name='主机IP')
+	application_lines = models.CharField(max_length=50, verbose_name='应用名称')
+	host_sn = models.CharField(max_length=20, verbose_name='SN编号')
+	factory_name = models.ForeignKey(Serverinfo, verbose_name='机型',null=True, on_delete=models.CASCADE)
+	server_category = models.ForeignKey(Servefactoryrinfo, verbose_name='厂商',null=True, on_delete=models.CASCADE)
+	problem_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+    repair_time =  models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+    trouble_name =  models.ForeignKey(trouble_name, verbose_name='故障类型',null=True, on_delete=models.CASCADE)
+    trouble_influence = models.ForeignKey(trouble_name, verbose_name='故障影响',null=True, on_delete=models.CASCADE)
+    idc_name = models.ForeignKey(IDCinfo, verbose_name='所属机房',null=True, on_delete=models.CASCADE) 
+    problem_desc = models.CharField(max_length=50, verbose_name='更换备件')
+    problem_info = models.CharField(max_length=50, verbose_name='备注')
+    add_time =  models.DateTimeField(default=datetime.now, verbose_name='登记时间')
+
+list_display = ['id','host_ip','application_lines','host_sn','factory_name','server_category','trouble_name','idc_name','problem_time','repair_time','problem_desc','add_time']
+search_fields = ['id','host_ip','application_lines','host_sn','factory_name','server_category','trouble_name','idc_name']
+
+
+
+
+
+IPADDR=192.168.48.173
+NETMASK=255.255.255.0
+GATEWAY=255.255.255.0
+
+192.168.48.163
+192.168.48.171
+
+SOURCE="192.168.48.4"
+curl -O -s http://$SOURCE/repo/CentOS-Base.repo
+curl -O -s http://$SOURCE/repo/epel.repo
+curl -O -s http://$SOURCE/repo/rpmforge.repo
+curl -O -s http://$SOURCE/repo/saltstack.repo
+curl -O -s http://$SOURCE/repo/zabbix.repo
+curl -O -s http://$SOURCE/repo/td-zstack-mn.repo
+
+
+#!/bin/bash
+Diskname=`lsblk  |grep 894 |head -1| awk  '{ print $1}'`
+
+
+
+
+
+
+
+
+cat >/etc/sysconfig/network-scripts/ifcfg-bond0<<EOF
+DEVICE=bond0
+ONBOOT=yes
+USERCTL=no
+BOOTPROTO=none
+BONDING_MASTER=yes
+BONDING_OPTS="mode=4 miimon=100"
+IPADDR=10.21.206.10
+NETMASK=255.255.255.0
+GATEWAY=10.21.206.1
+
+EOF
+
+cat >/etc/modprobe.d/modprobe.conf<<EOF
+alias bond0 bonding
+EOF
+
+mv  ifcfg-enp94s0f0  ifcfg-enp94s0f0.bak
+
+mv  ifcfg-enp94s0f1  ifcfg-enp94s0f1.bak
+
+cat >/etc/sysconfig/network-scripts/enp94s0f0<<EOF
+DEVICE=enp94s0f0
+MASTER=bond0
+SLAVE=yes
+USERCTL=no
+BOOTPROTO=none
+ONBOOT=yes
+EOF
+
+cat >/etc/sysconfig/network-scripts/ifcfg-enp94s0f1<<EOF
+DEVICE=enp94s0f1
+MASTER=bond0
+SLAVE=yes
+USERCTL=no
+BOOTPROTO=none
+ONBOOT=yes
+EOF
+
+
+
+
+
+
+
+rpm -q openssh-clients qemu-kvm-ev bridge-utils wget libvirt-python libvirt nfs-utils sed vconfig libvirt-client net-tools iscsi-initiator-utils lighttpd dnsmasq iproute sshpass iputils libguestfs-winsupport libguestfs-tools pv ipset usbutils pciutils expect rsync nmap lvm2 lvm2-lockd sanlock smartmontools device-mapper-multipath | grep "not installed" | awk '{ print $2 }'
+
+yum install   libvirt     libvirt-client      libguestfs-winsupport     libguestfs-tools  -y
+
+192.168.129.12
+
+mv  ifcfg-em1  ifcfg-em1.bak
+mv  ifcfg-em2  ifcfg-em2.bak
+
+cat >>/etc/sysconfig/network-scripts/ifcfg-bond0<<EOF
+DEVICE=bond0
+ONBOOT=yes
+USERCTL=no
+BOOTPROTO=none
+BONDING_MASTER=yes
+BONDING_OPTS="mode=4 miimon=100"
+IPADDR=10.57.34.16
+NETMASK=255.255.255.0
+GATEWAY=10.57.34.1
+
+EOF
+
+
+cat >/etc/sysconfig/network-scripts/ifcfg-em1<<EOF
+DEVICE=em1
+MASTER=bond0
+SLAVE=yes
+USERCTL=no
+BOOTPROTO=none
+ONBOOT=yes
+EOF
+
+
+cat >/etc/sysconfig/network-scripts/ifcfg-em2<<EOF
+DEVICE=em2
+MASTER=bond0
+SLAVE=yes
+USERCTL=no
+BOOTPROTO=none
+ONBOOT=yes
+EOF
+
+
+
+cat >/etc/modprobe.d/modprobe.conf<<EOF
+alias bond0 bonding
+EOF

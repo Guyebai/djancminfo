@@ -1,0 +1,43 @@
+
+
+<el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+  <el-form :model="form">
+    <el-form-item label="活动名称" :label-width="formLabelWidth">
+      <el-input v-model="form.name" autocomplete="off"></el-input>
+    </el-form-item>
+    <el-form-item label="活动区域" :label-width="formLabelWidth">
+      <el-select v-model="form.region" placeholder="请选择活动区域">
+        <el-option label="区域一" value="shanghai"></el-option>
+        <el-option label="区域二" value="beijing"></el-option>
+      </el-select>
+    </el-form-item>
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="dialogFormVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+  </div>
+</el-dialog>
+
+
+<el-dialog title="编辑服务器故障类型"    width="30%"   :visible.sync="editlogFormVisible">
+    <el-form    :model="form"  >
+      <el-form-item  label="编辑故障名称"  :label-width="formLabelWidth" >
+        <el-input v-model="form.trouble_name"  autocomplete="off" ></el-input>
+      </el-form-item>
+      <el-form-item label="是否需要重启" :label-width="formLabelWidth" >
+        
+           <el-radio-group v-model="form.trouble_influence">
+            <el-radio class="radio" :label="1">是</el-radio>
+            <el-radio class="radio" :label="0">否</el-radio>
+          </el-radio-group>
+
+      </el-form-item>
+      <el-form-item label="故障描述"   :label-width="formLabelWidth">
+        <el-input   type="textarea" v-model="form.trouble_desc"  :autosize="{ minRows: 2, maxRows: 4}"></el-input>
+      </el-form-item>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="editlogFormVisible = false">取 消</el-button>
+      <el-button type="primary" @click="ahandleEdit(form.id);  editlogFormVisible = false">确 定</el-button> <!--绑定两个事件-->
+    </div>
+  </el-dialog>
