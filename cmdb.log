@@ -4174,3 +4174,203 @@ django.db.utils.IntegrityError: (1451, 'Cannot delete or update a parent row: a 
 2018-10-29 21:54:25,685 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /api/troubles/3/
 2018-10-29 21:54:26,217 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /api/troubles/3/
 2018-10-29 21:54:27,267 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /api/troubles/3/
+2018-10-30 00:00:32,971 ERROR    /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/exception.py[line:118] Internal Server Error: /admin/troubleinfo/server_problem/add/
+Traceback (most recent call last):
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/mysql/base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/cursors.py", line 170, in execute
+    result = self._query(query)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/cursors.py", line 328, in _query
+    conn.query(q)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 516, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 727, in _read_query_result
+    result.read()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 1066, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 683, in _read_packet
+    packet.check_error()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`cmdbinfo`.`troubleinfo_server_problem`, CONSTRAINT `troubleinfo_server_p_factory_name_id_b5306705_fk_baseinfo_` FOREIGN KEY (`factory_name_id`) REFERENCES `baseinfo_serverinfo` (`id`))')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/exception.py", line 35, in inner
+    response = get_response(request)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/contrib/admin/options.py", line 574, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/utils/decorators.py", line 142, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/views/decorators/cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/contrib/admin/sites.py", line 223, in inner
+    return view(request, *args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/contrib/admin/options.py", line 1553, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/utils/decorators.py", line 62, in _wrapper
+    return bound_func(*args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/utils/decorators.py", line 142, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/utils/decorators.py", line 58, in bound_func
+    return func.__get__(self, type(self))(*args2, **kwargs2)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/contrib/admin/options.py", line 1450, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/contrib/admin/options.py", line 1490, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/contrib/admin/options.py", line 1026, in save_model
+    obj.save()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/base.py", line 729, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/base.py", line 759, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/base.py", line 842, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/base.py", line 880, in _do_insert
+    using=using, raw=raw)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/query.py", line 1125, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/sql/compiler.py", line 1280, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/utils.py", line 100, in execute
+    return super().execute(sql, params)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/utils.py", line 68, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/utils.py", line 77, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/mysql/base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/cursors.py", line 170, in execute
+    result = self._query(query)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/cursors.py", line 328, in _query
+    conn.query(q)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 516, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 727, in _read_query_result
+    result.read()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 1066, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 683, in _read_packet
+    packet.check_error()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.IntegrityError: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`cmdbinfo`.`troubleinfo_server_problem`, CONSTRAINT `troubleinfo_server_p_factory_name_id_b5306705_fk_baseinfo_` FOREIGN KEY (`factory_name_id`) REFERENCES `baseinfo_serverinfo` (`id`))')
+2018-10-30 00:01:10,958 ERROR    /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/exception.py[line:118] Internal Server Error: /admin/troubleinfo/server_problem/add/
+Traceback (most recent call last):
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/mysql/base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/cursors.py", line 170, in execute
+    result = self._query(query)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/cursors.py", line 328, in _query
+    conn.query(q)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 516, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 727, in _read_query_result
+    result.read()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 1066, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 683, in _read_packet
+    packet.check_error()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`cmdbinfo`.`troubleinfo_server_problem`, CONSTRAINT `troubleinfo_server_p_factory_name_id_b5306705_fk_baseinfo_` FOREIGN KEY (`factory_name_id`) REFERENCES `baseinfo_serverinfo` (`id`))')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/exception.py", line 35, in inner
+    response = get_response(request)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/contrib/admin/options.py", line 574, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/utils/decorators.py", line 142, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/views/decorators/cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/contrib/admin/sites.py", line 223, in inner
+    return view(request, *args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/contrib/admin/options.py", line 1553, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/utils/decorators.py", line 62, in _wrapper
+    return bound_func(*args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/utils/decorators.py", line 142, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/utils/decorators.py", line 58, in bound_func
+    return func.__get__(self, type(self))(*args2, **kwargs2)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/contrib/admin/options.py", line 1450, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/contrib/admin/options.py", line 1490, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/contrib/admin/options.py", line 1026, in save_model
+    obj.save()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/base.py", line 729, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/base.py", line 759, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/base.py", line 842, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/base.py", line 880, in _do_insert
+    using=using, raw=raw)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/query.py", line 1125, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/models/sql/compiler.py", line 1280, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/utils.py", line 100, in execute
+    return super().execute(sql, params)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/utils.py", line 68, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/utils.py", line 77, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/utils.py", line 85, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/db/backends/mysql/base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/cursors.py", line 170, in execute
+    result = self._query(query)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/cursors.py", line 328, in _query
+    conn.query(q)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 516, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 727, in _read_query_result
+    result.read()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 1066, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/connections.py", line 683, in _read_packet
+    packet.check_error()
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/protocol.py", line 220, in check_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/err.py", line 109, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.IntegrityError: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`cmdbinfo`.`troubleinfo_server_problem`, CONSTRAINT `troubleinfo_server_p_factory_name_id_b5306705_fk_baseinfo_` FOREIGN KEY (`factory_name_id`) REFERENCES `baseinfo_serverinfo` (`id`))')

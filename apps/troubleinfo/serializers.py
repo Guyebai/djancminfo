@@ -9,12 +9,8 @@ class Server_problemSerializer(serializers.HyperlinkedModelSerializer):
 	#tracks = serializers.StringRelatedField(many=True)
 	trouble_name = serializers.ReadOnlyField(source='trouble_name.trouble_name')
 	server_category = serializers.ReadOnlyField(source='server_category.server_category')
-	factory_name = serializers.ReadOnlyField(source='factory_name.factory_name')
+	factory_names = serializers.ReadOnlyField(source='factory_name.factory_name')
 	
-	#trouble_name = serializers.PrimaryKeyRelatedField(queryset=Trouble_type.objects.all())
-	#troublename= serializers.StringRelatedField(many=True)
-	
-	#trouble_name = serializers.CharField(source='trouble_name.trouble_name')
 	class Meta:
 		model = Server_problem
 		fields = ('url',
@@ -28,6 +24,7 @@ class Server_problemSerializer(serializers.HyperlinkedModelSerializer):
 		          'problem_desc',
 		          'server_category',
 		          'problem_info',
+		          'factory_names',
 		          'factory_name',
 		          )
 		
