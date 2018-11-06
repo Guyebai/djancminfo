@@ -9,7 +9,7 @@ class Server_problemSerializer(serializers.HyperlinkedModelSerializer):
 	#tracks = serializers.StringRelatedField(many=True)
 	trouble_name = serializers.ReadOnlyField(source='trouble_name.trouble_name')
 	server_category = serializers.ReadOnlyField(source='server_category.server_category')
-	factory_names = serializers.ReadOnlyField(source='factory_name.factory_name')
+	factory_name = serializers.ReadOnlyField(source='factory_name.factory_name')
 	
 	class Meta:
 		model = Server_problem
@@ -24,7 +24,6 @@ class Server_problemSerializer(serializers.HyperlinkedModelSerializer):
 		          'problem_desc',
 		          'server_category',
 		          'problem_info',
-		          'factory_names',
 		          'factory_name',
 		          )
 		

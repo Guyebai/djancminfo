@@ -1,0 +1,29 @@
+ getlinesData(){
+        this.$axios.get("http://127.0.0.1:8000/api/productlines/",{
+        params:{
+        page:  this.page.currentPage,
+        page_size: this.page.pageSize ,
+        search: this.filters.name,
+        }
+        })
+          .then(res => {
+            this.filterData(res.data);
+            console.log(res.data)
+          })
+          .catch(error =>{
+            console.log(error)
+          })
+      },
+
+      //数据展示筛选
+      filterData(data){
+        var  linefinaldata = [];
+        for (var i=0;i<data.results.length;i++){
+          var dataobj ={
+             id:data.results[i].id,
+            line_name:data.results[i].line_name,
+          }
+          finaldata.push(dataobj);
+        }
+        this.line_names = linefinaldata;
+      },

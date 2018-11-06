@@ -1,5 +1,5 @@
 <template>
-  <div class="productlines">
+  <div class="probleminfo">
 
      <!-- 添加记录-->
     <el-row :gutter="5" class="line-addproblem">
@@ -19,11 +19,12 @@
           <el-button type="success"
                      icon="el-icon-circle-plus-outline"
                      size="mini"  @click="dialogFormVisible = true" >
-            增加机型</el-button>
+            增加产品线</el-button>
       </el-col>
       <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
 
     </el-row>
+
 
     <el-table
       ref="multipleTable"
@@ -46,29 +47,36 @@
       </el-table-column> -->
 
       <el-table-column
-        prop="server_category"
-        label="机型"
+        prop="line_name"
+        label="产品线名称"
         width="180">
       </el-table-column>
 
      
       <el-table-column
-        prop="server_product"
-        label="制造商"
+        prop="line_tag"
+        label="应用标识符"
         show-overflow-tooltip>
         </el-table-column>
 
         <el-table-column
-        prop="server_config"
-        label="配置"
+        prop="line_owner"
+        label="应用负责人"
         show-overflow-tooltip>
+        </el-table-column>
+
+        <el-table-column
+        prop="line_department"
+        label="应用部门"
+        show-overflow-tooltip>
+
         </el-table-column>
         <el-table-column
-        prop="server_desc"
-        label="描述"
+        prop="line_desc"
+        label="应用描述"
         show-overflow-tooltip>
-        </el-table-column>
-      
+      </el-table-column>
+
       <el-table-column label="编辑" width="100">
         <template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" size="mini" @click.prevent="editproblem(scope.row.id)">编辑</el-button>
@@ -97,24 +105,26 @@
 
 
 
-  <!--增加机型类型模态框-->
-  <el-dialog title="增加机型"   width="30%"  :visible.sync="dialogFormVisible">
+  <!--增加应用模态框-->
+  <el-dialog title="增加应用类型"   width="30%"  :visible.sync="dialogFormVisible">
     <el-form :model="addform"     :label-position="labelPosition"   >
-      <el-form-item label="机型名称"  :label-width="formLabelWidth" >
-        <el-input type='text'  size='mini' v-model="addform.server_category"  autocomplete="off" ></el-input>
-      </el-form-item>
-      <el-form-item label="制造商"  :label-width="formLabelWidth" >
-        <el-input type='text'  size='mini' v-model="addform.server_product"  autocomplete="off" ></el-input>
+      <el-form-item label="产品线名称"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="addform.line_name"  autocomplete="off" ></el-input>
       </el-form-item>
 
-       </el-form-item>
-      <el-form-item label="机型配置"  :label-width="formLabelWidth" >
-        <el-input    type="textarea"  v-model="addform.server_config" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
+      <el-form-item label="产品线标识"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="addform.line_tag"  autocomplete="off" ></el-input>
       </el-form-item>
 
+        <el-form-item label="产品线负责人"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="addform.line_owner"  autocomplete="off" ></el-input>
       </el-form-item>
-      <el-form-item label="机型描述"  :label-width="formLabelWidth" >
-        <el-input    type="textarea"  v-model="addform.server_desc" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
+
+      <el-form-item label="产品线事业部门"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="addform.line_department"  autocomplete="off" ></el-input>
+      </el-form-item>
+      <el-form-item label="生产线描述"  :label-width="formLabelWidth" >
+        <el-input    type="textarea"  v-model="addform.line_desc" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
       </el-form-item>
 
     </el-form>
@@ -124,38 +134,46 @@
     </div>
   </el-dialog>
 
+    <!--编辑应用类型模态框-->
 
-    <!--编辑机型模态框-->
-
-  <el-dialog title="编辑机型"    width="30%"   :visible.sync="editlogFormVisible">
+  <el-dialog title="编辑应用"    width="30%"   :visible.sync="editlogFormVisible">
     <el-form    :model="editform"  >
-     <el-form-item label="机型名称"  :label-width="formLabelWidth" >
-        <el-input type='text'  size='mini' v-model="editform.server_category"  autocomplete="off" ></el-input>
-      </el-form-item>
-      <el-form-item label="制造商"  :label-width="formLabelWidth" >
-        <el-input type='text'  size='mini' v-model="editform.server_product"  autocomplete="off" ></el-input>
+      <el-form-item label="产品线名称"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="editform.line_name"  autocomplete="off" ></el-input>
       </el-form-item>
 
-       </el-form-item>
-      <el-form-item label="机型配置"  :label-width="formLabelWidth" >
-        <el-input    type="textarea"  v-model="editform.server_config" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
+      <el-form-item label="产品线标识"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="editform.line_tag"  autocomplete="off" ></el-input>
       </el-form-item>
 
+        <el-form-item label="产品线负责人"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="editform.line_owner"  autocomplete="off" ></el-input>
       </el-form-item>
-      <el-form-item label="机型描述"  :label-width="formLabelWidth" >
-        <el-input    type="textarea"  v-model="editform.server_desc" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
+
+      <el-form-item label="产品线事业部"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="editform.line_department"  autocomplete="off" ></el-input>
       </el-form-item>
+      <el-form-item label="产品线描述"  :label-width="formLabelWidth" >
+        <el-input    type="textarea"  v-model="editform.line_desc" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
+      </el-form-item>
+
+
 
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="editlogFormVisible = false">取 消</el-button>
-      <el-button type="primary" @click="ahandleEdit( editform.id);  editlogFormVisible = false">确 定</el-button> <!--绑定两个事件-->
+      <el-button type="primary" @click="ahandleEdit( editform.id );  editlogFormVisible = false">确 定</el-button> <!--绑定两个事件-->
     </div>
   </el-dialog>
 
   </div>
 
 </template>
+
+
+
+
+
 
 <script>
 import   qs from 'qs'
@@ -164,30 +182,35 @@ import   qs from 'qs'
     name: "productlines",
     data () {
       return {
-        addform:{
-         server_category: '',
-         server_product: '',
-         server_config:'',
-         server_desc:'',
+         addform:{
+         line_name:'',
+              line_tag:'',
+              line_owner:'',
+              line_department:'',
+              line_desc:'',
+
         },
         data_names:[],
         dialogFormVisible: false,
         editlogFormVisible: false,
         labelPosition: 'left',
-        formLabelWidth: '70px',
+        formLabelWidth: '100px',
         formrebootLabelWidth:'30px',
-        editform:{
-         id:'',
-         server_category: "",
-         server_product: '',
-         server_config:'',
-         server_desc:'',
+       
+         editform:{
+            
+              id:'',
+              line_name:'',
+              line_tag:'',
+              line_owner:'',
+              line_department:'',
+              line_desc:'',
         },
         filters: {
         name: ""
       },page:{
         currentPage:1,
-        pageSize:5,
+        pageSize:10,
         totalRecords: 0, //总条数
         totalPages: 0, //总页数
       }
@@ -199,14 +222,10 @@ import   qs from 'qs'
     },
     methods:{
     //获取故障列表
-
-
-
-
       getproblemData(){
         if(this.page.currentPage >1);
-         this.page.currentPage === 1
-        this.$axios.get("http://127.0.0.1:8000/api/serverinfos/",{
+        this.page.currentPage === 1
+        this.$axios.get("http://127.0.0.1:8000/api/productlines/",{
         params:{
         page:  this.page.currentPage,
         page_size: this.page.pageSize ,
@@ -236,11 +255,11 @@ import   qs from 'qs'
         for (var i=0;i<data.results.length;i++){
           var dataobj ={
             id:data.results[i].id,
-            server_category:data.results[i].server_category,
-            server_product:data.results[i].server_product,
-            server_config:data.results[i].server_config,
-            server_desc:data.results[i].server_desc,
-
+            line_name:data.results[i].line_name,
+            line_tag:data.results[i].line_tag,
+            line_owner:data.results[i].line_owner,
+            line_department:data.results[i].line_department,
+            line_desc:data.results[i].line_desc,
           }
           finaldata.push(dataobj);
         }
@@ -270,12 +289,12 @@ import   qs from 'qs'
 
       //添加故障记录
       addinfo(){
-        this.$axios.post("http://127.0.0.1:8000/api/serverinfos/", {
-            server_category: this.addform.server_category,
-            server_product: this.addform.server_product,
-            server_config: this.addform.server_config,
-            server_desc: this.addform.server_desc,
-
+        this.$axios.post("http://127.0.0.1:8000/api/productlines/", {
+           line_name: this.addform.line_name,
+           line_tag: this.addform.line_tag,
+           line_owner: this.addform.line_owner,
+           line_department: this.addform.line_department,
+           line_desc: this.addform.line_desc,
         })
           .then(res => {
             if (res.status === 201){
@@ -292,11 +311,10 @@ import   qs from 'qs'
             console.log(error)
           });
       },
-
         //删除故障记录
       deleteproblem(id) {
         this.$confirm("确认删除吗？",'提示',{type:'waring'}).then(()=>{
-        this.$axios.delete("http://127.0.0.1:8000/api/serverinfos/" + id +'/').then(res => {
+        this.$axios.delete("http://127.0.0.1:8000/api/productlines/" + id +'/').then(res => {
           if (res.status === 204 ) {
             // 删除成功
              this.$message({message:"删除成功",type:'success'});
@@ -311,15 +329,16 @@ import   qs from 'qs'
 
       //故障编辑信息
       editproblem(id) {
-      this.$axios.get("http://127.0.0.1:8000/api/serverinfos/" + id + '/').then(res => {
+      this.$axios.get("http://127.0.0.1:8000/api/productlines/" + id + '/').then(res => {
       if (res.status === 200 ) {
-            //获取成功
+            // 编辑
          this.editform ={
-            id:res.data.id,
-            server_category: res.data.server_category,
-            server_product: res.data.server_product,
-            server_config: res.data.server_config,
-            server_desc: res.data.server_desc,
+          id:res.data.id,
+          line_name: res.data.line_name,
+          line_tag: res.data.line_tag,
+          line_owner: res.data.line_owner,
+          line_department: res.data.line_department,
+          line_desc: res.data.line_desc,
            };
         this.editlogFormVisible = true
 
@@ -333,11 +352,14 @@ import   qs from 'qs'
       },
       //编辑后提交
       ahandleEdit(id){
-        this.$axios.patch("http://127.0.0.1:8000/api/serverinfos/" + id +'/', qs.stringify({
-            server_category: this.editform.server_category,
-            server_product: this.editform.server_product,
-            server_config: this.editform.server_config,
-            server_desc: this.editform.server_desc,
+        this.$axios.patch("http://127.0.0.1:8000/api/productlines/" + id +'/', qs.stringify({
+          line_name: this.editform.line_name,
+          line_tag: this.editform.line_tag,
+          line_owner: this.editform.line_owner,
+          line_department: this.editform.line_department,
+          line_desc: this.editform.line_desc,
+       
+         
         }))
           .then(res => {
             if (res.status === 200){
@@ -379,10 +401,11 @@ import   qs from 'qs'
 
 
 
+
 </script>
 
 <style scoped>
-  .productlines{
+  .probleminfo{
     color: #42b983;
     font-weight: normal;
     margin-top:0px;

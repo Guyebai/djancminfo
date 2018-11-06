@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from  .models import IDCinfo,Serverinfo,Servefactoryrinfo,Application_info
+from  .models import IDCinfo,Serverinfo,Servefactoryrinfo,Application_info,Product_lines
 
 # Register your models here.
 
@@ -26,4 +26,53 @@ class ServefactoryrinfoAdmin(admin.ModelAdmin):
 	list_display = ['id', 'factory_name', 'factory_address', 'factory_category', 'factory_leader','factory_leader_phone']
 	search_fields = ['id', 'factory_name', 'factory_address', 'factory_category', 'factory_leader','factory_leader_phone']
 admin.site.register(Servefactoryrinfo,ServefactoryrinfoAdmin)
-admin.site.register(Application_info)
+
+
+#admin.site.register(Application_info) 简单注册
+
+
+
+
+class ApplicationinfoAdmin(admin.ModelAdmin):
+	list_display = [
+		'application_name',
+		'application_tag',
+		'line_name',
+		'application_owner',
+		'application_department',
+		'application_desc',
+		
+	]
+	search_fields =[
+		'application_name',
+		'application_tag',
+		'line_name',
+		'application_owner',
+		'application_department',
+		'application_desc',
+		
+	]
+
+admin.site.register(Application_info,ApplicationinfoAdmin)
+
+class ProductlinesAdmin(admin.ModelAdmin):
+	list_display = [
+		'line_name',
+		'line_tag',
+		'line_owner',
+		'line_department',
+		'line_desc',
+		'add_time',
+		
+	]
+	search_fields = [
+		'line_name',
+		'line_tag',
+		'line_owner',
+		'line_department',
+		'line_desc',
+
+		]
+admin.site.register(Product_lines,ProductlinesAdmin)
+
+

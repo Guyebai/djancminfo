@@ -1,20 +1,25 @@
 from rest_framework import serializers
 
-from  .models import  Application_info,IDCinfo,Servefactoryrinfo,Serverinfo
-	#,,Serverinfo,
+from  .models import  Application_info,IDCinfo,Servefactoryrinfo,Serverinfo,Product_lines
 
 
-class Application_infoSerializer(serializers.HyperlinkedModelSerializer):
+
+class Application_infoSerializer(serializers.ModelSerializer):
 	"""应用信息序列化"""
+	
+	line_idname = serializers.ReadOnlyField(source='line_name.line_name')
+	
 	class Meta:
 		model = Application_info
 		fields = (
 			      'id',
 				  'application_name',
 		          'application_tag',
+			      'line_name',
 		          'application_owner',
 		          'application_department',
 		          'application_desc',
+				   'line_idname',
 		          )
 		
 class  IDCinfoSerializer(serializers.HyperlinkedModelSerializer):
@@ -57,5 +62,19 @@ class ServerinfoSerializer(serializers.HyperlinkedModelSerializer):
 			'server_config',
 			'server_desc'
 		)
-		
-		
+
+
+class ProductlinesSerializer(serializers.HyperlinkedModelSerializer):
+	"""产品线序列化"""
+	
+	class Meta:
+		model = Product_lines
+		fields = (
+			'id',
+			'line_name',
+			'line_tag',
+			'line_owner',
+			'line_department',
+			'line_desc',
+			
+		)

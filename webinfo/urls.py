@@ -27,7 +27,7 @@ from  rest_framework.documentation import include_docs_urls #文档
 from rest_framework_jwt.views import obtain_jwt_token #jwt_token
 from rest_framework_jwt.views import refresh_jwt_token
 
-from  baseinfo.views import Application_infoViewSet,IDCinfoViewSet,ServefactoryrViewSet,ServerinfoViewSet
+from  baseinfo.views import Application_infoViewSet,IDCinfoViewSet,ServefactoryrViewSet,ServerinfoViewSet,ProductlinesViewSet
 from  troubleinfo.views import TroubleViewSet,Server_problemViewSet
 from  pcinfo.views  import  PcinfoViewSet
 
@@ -50,9 +50,12 @@ router.register(r'troubles', TroubleViewSet)#故障类型
 router.register(r'problems', Server_problemViewSet)#故障登记
 router.register(r'idcinfos', IDCinfoViewSet) #机房信息表
 router.register(r'pcinfos', PcinfoViewSet) #服务器信息表
-router.register(r'servefactoryrs', ServefactoryrViewSet)#厂商
+router.register(r'suppliers', ServefactoryrViewSet)#厂商
 router.register(r'applications', Application_infoViewSet)#应用
 router.register(r'serverinfos', ServerinfoViewSet)#机型
+
+router.register(r'productlines', ProductlinesViewSet)#生产线
+
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),

@@ -4374,3 +4374,49 @@ Traceback (most recent call last):
   File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/pymysql/err.py", line 109, in raise_mysql_exception
     raise errorclass(errno, errval)
 django.db.utils.IntegrityError: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`cmdbinfo`.`troubleinfo_server_problem`, CONSTRAINT `troubleinfo_server_p_factory_name_id_b5306705_fk_baseinfo_` FOREIGN KEY (`factory_name_id`) REFERENCES `baseinfo_serverinfo` (`id`))')
+2018-10-31 21:06:21,602 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /favicon.ico
+2018-11-01 00:23:43,229 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /setting/user
+2018-11-01 00:23:43,528 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /favicon.ico
+2018-11-02 14:33:53,047 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /api/troubles/undefined/
+2018-11-05 19:46:44,017 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /favicon.ico
+2018-11-05 23:05:47,320 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /api/applications/
+2018-11-05 23:05:50,634 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /api/applications/12/
+2018-11-05 23:45:01,208 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /api/applications
+2018-11-05 23:56:10,790 ERROR    /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/exception.py[line:118] Internal Server Error: /api/applications/
+Traceback (most recent call last):
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/exception.py", line 35, in inner
+    response = get_response(request)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/rest_framework/viewsets.py", line 103, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/rest_framework/views.py", line 483, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/rest_framework/views.py", line 443, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/rest_framework/views.py", line 480, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/rest_framework/mixins.py", line 20, in create
+    serializer.is_valid(raise_exception=True)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/rest_framework/serializers.py", line 236, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/rest_framework/serializers.py", line 434, in run_validation
+    value = self.to_internal_value(data)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/rest_framework/serializers.py", line 488, in to_internal_value
+    validated_value = field.run_validation(primitive_value)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/rest_framework/fields.py", line 523, in run_validation
+    value = self.to_internal_value(data)
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/rest_framework/relations.py", line 504, in to_internal_value
+    for item in data
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/rest_framework/relations.py", line 504, in <listcomp>
+    for item in data
+  File "/Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/rest_framework/fields.py", line 557, in to_internal_value
+    cls=self.__class__.__name__
+NotImplementedError: StringRelatedField.to_internal_value() must be implemented.
+2018-11-06 00:11:02,637 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /api/applications/
+2018-11-06 09:53:54,572 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /api/productlines/
+2018-11-06 13:58:02,661 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /favicon.ico

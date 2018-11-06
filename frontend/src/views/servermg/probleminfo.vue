@@ -24,12 +24,14 @@
       <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
 
     </el-row>
+    <el-row>
 
     <el-table
       ref="multipleTable"
       :data="trouble_names"
       tooltip-effect="dark"
       style="width: 95%"
+      max-height="500"
       @selection-change="handleSelectionChange">
       <el-table-column
         type="selection"
@@ -72,6 +74,8 @@
         </template>
       </el-table-column>
     </el-table>
+
+    </el-row>
     <!--分页条-->
 
 
@@ -86,7 +90,6 @@
       :total="page.totalRecords">
     </el-pagination>
   </div>
-
 
 
   <!--增加故障类型模态框-->

@@ -19,7 +19,7 @@
           <el-button type="success"
                      icon="el-icon-circle-plus-outline"
                      size="mini"  @click="dialogFormVisible = true" >
-            增加应用</el-button>
+            增加机房</el-button>
       </el-col>
       <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
 
@@ -30,6 +30,7 @@
       :data="data_names"
       tooltip-effect="dark"
       style="width: 95%"
+      max-height="500"
       @selection-change="handleSelectionChange">
       <el-table-column
         type="selection"

@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import datetime
+import   time
+datetimenow = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
 # Create your models here.
 class  IDCinfo(models.Model):
 	"""机房管理"""
@@ -30,6 +32,20 @@ class  Serverinfo(models.Model):
 	def __str__(self):
 		return self.server_category
 	
+	
+class Product_lines(models.Model):
+	line_name = models.CharField(max_length=50, verbose_name='产品线')
+	line_tag  = models.CharField(max_length=50, verbose_name='产品线标识符',unique=True)
+	line_owner = models.CharField(max_length=50, verbose_name='产品线负责人')
+	line_department = models.CharField(max_length=50, verbose_name='产品线事业部')
+	line_desc = models.CharField(max_length=500, verbose_name='产品线描述')
+	add_time =models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+	class  Meta:
+		verbose_name = '产品线'
+		verbose_name_plural = verbose_name
+	def __str__(self):
+		return self.line_name
+	
 class  Servefactoryrinfo(models.Model):
 	"""供应商信息"""
 	factory_name = models.CharField(max_length=50, verbose_name='供应商名称',unique=True)
@@ -50,6 +66,7 @@ class  Servefactoryrinfo(models.Model):
 class  Application_info(models.Model):
 	application_name = models.CharField(max_length=50, verbose_name='应用名称')
 	application_tag  = models.CharField(max_length=50, verbose_name='应用标识符',unique=True)
+	line_name = models.ForeignKey(Product_lines, verbose_name='产品线',null=True, on_delete=models.CASCADE)
 	application_owner = models.CharField(max_length=50, verbose_name='应用负责人')
 	application_department = models.CharField(max_length=50, verbose_name='应用部门')
 	application_desc = models.CharField(max_length=500, verbose_name='应用简介')
@@ -59,3 +76,6 @@ class  Application_info(models.Model):
 		verbose_name_plural = verbose_name
 	def __str__(self):
 		return self.application_tag
+	
+
+	

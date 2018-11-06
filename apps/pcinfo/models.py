@@ -6,7 +6,7 @@ from baseinfo.models import IDCinfo,Serverinfo,Servefactoryrinfo
 class Pcinfo(models.Model):
 	host_ip = models.CharField(max_length=40, verbose_name='主机IP',unique=True)
 	host_sn = models.CharField(max_length=20, verbose_name='SN编号',unique=True)
-	server_category = models.ForeignKey(Servefactoryrinfo, verbose_name='厂商',null=True, on_delete=models.CASCADE)
+	server_category = models.ForeignKey(Servefactoryrinfo, verbose_name='制造商',null=True, on_delete=models.CASCADE)
 	#host_product = models.CharField(max_length=500, verbose_name='厂商名称')
 	factory_name =models.ForeignKey(Serverinfo, verbose_name='机型',null=True, on_delete=models.CASCADE)
 	idc_name = models.ForeignKey(IDCinfo, verbose_name='所属机房',null=True, on_delete=models.CASCADE)

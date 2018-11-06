@@ -9,6 +9,10 @@ import  serverlist from '@/views/servermg/serverlist'
 import   addproblem  from  '@/views/servermg/addproblem'
 import   idcinfo   from  '@/views/setting/idcinfo'
 
+import   productlines  from  '@/views/setting/productlines'
+
+
+
 
 export  default [
     {
@@ -22,16 +26,17 @@ export  default [
       },
       component:baseinfo,
       children:[
-        {
-          path: '/setting/category',
-          name: 'category',
+      {
+          path: '/setting/lines',
+          name: 'lines',
           meta: {
-            name: '机型管理',
+            name: '产品线',
             auth: false,
             icon: 'el-icon-edit-outline',
           },
-          component: servercategory,
-         },{
+          component: productlines,
+         },
+        {
           path: '/setting/apps',
           name: 'server_category',
           meta: {
@@ -41,6 +46,17 @@ export  default [
           },
           component: server_category,
         },
+
+        {
+          path: '/setting/category',
+          name: 'category',
+          meta: {
+            name: '机型管理',
+            auth: false,
+            icon: 'el-icon-edit-outline',
+          },
+          component: servercategory,
+         },
         {
           path: '/setting/idcroom',
           name: 'room',
@@ -51,6 +67,8 @@ export  default [
           },
           component: idcinfo,
          },
+         
+
           ]
         },
         {

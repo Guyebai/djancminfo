@@ -7,9 +7,9 @@ from django.shortcuts import render
 from rest_framework import filters
 from rest_framework import routers, serializers, viewsets
 
-from  .models import  Application_info,Servefactoryrinfo,Serverinfo,IDCinfo
+from  .models import  Application_info,Servefactoryrinfo,Serverinfo,IDCinfo,Product_lines
 
-from  .serializers import  Application_infoSerializer,IDCinfoSerializer,ServefactoryrSerializer,ServerinfoSerializer
+from  .serializers import  Application_infoSerializer,IDCinfoSerializer,ServefactoryrSerializer,ServerinfoSerializer,ProductlinesSerializer
 	#,,ServerinfoSerializer,IDCinfo
 from baseinfo.pagination import StandardResultsPagination
 
@@ -23,6 +23,7 @@ class  Application_infoViewSet(viewsets.ModelViewSet):
 	filter_backends = (filters.SearchFilter,)
 	search_fields = ('application_name',
 	                 'application_tag',
+	                 'line_name',
 	                 'application_owner',
 	                 'application_department',
 	                 'application_desc'
@@ -77,3 +78,17 @@ class ServerinfoViewSet(viewsets.ModelViewSet):
 			'server_desc'
 	                 )
 	
+
+class ProductlinesViewSet(viewsets.ModelViewSet):
+	"""机型信息接口"""
+	queryset = Product_lines.objects.all()
+	serializer_class = ProductlinesSerializer
+	pagination_class = StandardResultsPagination
+	filter_backends = (filters.SearchFilter,)
+	search_fields = (
+			'line_name',
+			'line_tag',
+			'line_owner',
+			'line_department',
+			'line_desc',
+	                 )
