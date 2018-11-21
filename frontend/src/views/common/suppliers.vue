@@ -19,16 +19,15 @@
           <el-button type="success"
                      icon="el-icon-circle-plus-outline"
                      size="mini"  @click="dialogFormVisible = true" >
-            添加故障类型</el-button>
+            增加供应商</el-button>
       </el-col>
       <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
 
     </el-row>
-    <el-row>
 
     <el-table
       ref="multipleTable"
-      :data="trouble_names"
+      :data="data_names"
       tooltip-effect="dark"
       style="width: 95%"
       max-height="500"
@@ -38,29 +37,53 @@
         width="40">
       </el-table-column>
       <el-table-column type="index" :index="indexMethod">索引</el-table-column>
+    
      <!--
-
       <el-table-column
         label="序号"
         width="80">
         <template slot-scope="scope">{{ scope.row.id }}</template>
       </el-table-column> -->
-      <el-table-column
-        prop="trouble_name"
-        label="故障名称"
+
+
+factory_name: "",
+         factory_address: '0',
+         factory_category:'',
+         factory_leader:'',
+         factory_leader_phone:'',
+
+    <el-table-column
+        prop="factory_name"
+        label="供应商名称"
         width="180">
       </el-table-column>
+     
       <el-table-column
-        prop="trouble_influence"
-        label="是否重启" :formatter="formatproble"
-         width="80"
+        prop="factory_address"
+        label="供应商地址"
         show-overflow-tooltip>
+        </el-table-column>
+
+        <el-table-column
+        prop="factory_category"
+        label="供应商类型"  :formatter="formatdata"
+        show-overflow-tooltip>
+        </el-table-column>
+        <el-table-column
+        prop="factory_leader"
+        label="联系人"
+        show-overflow-tooltip>
+        </el-table-column>
+
+        <el-table-column
+        prop="factory_leader_phone"
+        label="联系方式"
+        width="180">
       </el-table-column>
-      <el-table-column
-        prop="trouble_desc"
 
-        label="故障描述"
-
+        <el-table-column
+        prop="factory_desc"
+        label="描述"
         show-overflow-tooltip>
       </el-table-column>
       <el-table-column label="编辑" width="100">
@@ -74,8 +97,6 @@
         </template>
       </el-table-column>
     </el-table>
-
-    </el-row>
     <!--分页条-->
 
 
@@ -92,21 +113,35 @@
   </div>
 
 
-  <!--增加故障类型模态框-->
-  <el-dialog title="增加故障类型"   width="30%"  :visible.sync="dialogFormVisible">
-    <el-form :model="editform"     :label-position="labelPosition"   >
-      <el-form-item label="故障名称"  :label-width="formLabelWidth" >
-        <el-input type='text'  size='mini' v-model="editform.trouble_name"  autocomplete="off" ></el-input>
+
+  <!--增加供应商信息模态框-->
+  <el-dialog title="增加供应商"   width="30%"  :visible.sync="dialogFormVisible">
+    <el-form :model="addform"     :label-position="labelPosition"   >
+      <el-form-item label="供应商名称"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="addform.factory_name"  autocomplete="off" ></el-input>
       </el-form-item>
-      <el-form-item label="是否重启" :label-width="formLabelWidth" >
-        <el-radio-group v-model="editform.trouble_influence"  width='formrebootLabelWidth'  >
-            <el-radio class="radio" :label="1">是</el-radio>
-            <el-radio class="radio" :label="0">否</el-radio>
+       <el-form-item label="供应商负责人"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="addform.factory_leader"  autocomplete="off" ></el-input>
+      </el-form-item>
+      
+      <el-form-item label="供应商类型" :label-width="formLabelWidth" >
+        <el-radio-group v-model="addform.factory_category"  width='formrebootLabelWidth'  >
+            <el-radio class="radio" :label="1">集成商/代理商</el-radio>
+            <el-radio class="radio" :label="0">厂商</el-radio>
           </el-radio-group>
       </el-form-item>
-      <el-form-item label="故障描述"  :label-width="formLabelWidth" >
-        <el-input    type="textarea"  v-model="editform.trouble_desc" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
+
+       <el-form-item label="联系方式"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="addform.factory_leader_phone"  autocomplete="off" ></el-input>
       </el-form-item>
+       <el-form-item label="供应商地址"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="addform.factory_address"  autocomplete="off" ></el-input>
+      </el-form-item>
+    
+      <el-form-item label="供应商描述备注"  :label-width="formLabelWidth" >
+        <el-input type="textarea"  size='mini'  v-model="addform.factory_desc" :autosize="{ minRows: 2, maxRows: 4}" ></el-input>
+      </el-form-item>
+
 
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -115,27 +150,36 @@
     </div>
   </el-dialog>
 
+
+
+
     <!--编辑故障类型模态框-->
 
   <el-dialog title="编辑故障类型"    width="30%"   :visible.sync="editlogFormVisible">
-    <el-form    :model="form"  >
-      <el-form-item  label="故障名称"  :label-width="formLabelWidth" >
-        <el-input v-model="form.trouble_name"  autocomplete="off" ></el-input>
+    <el-form    :model="editform"  >
+         <el-form-item label="机房名称"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="editform.idc_name"  autocomplete="off" ></el-input>
       </el-form-item>
-      <el-form-item label="是否重启" :label-width="formLabelWidth" >
-           <el-radio-group v-model="form.trouble_influence">
-            <el-radio class="radio" :label="1">是</el-radio>
-            <el-radio class="radio" :label="0">否</el-radio>
-          </el-radio-group>
+       <el-form-item label="机房标识"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="editform.idc_tag"  autocomplete="off" ></el-input>
+      </el-form-item>
+       <el-form-item label="负责人"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="editform.idc_leader"  autocomplete="off" ></el-input>
+      </el-form-item>
+       <el-form-item label="联系方式"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="editform.idc_leader_phone"  autocomplete="off" ></el-input>
+      </el-form-item>
+       <el-form-item label="机房地址"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="editform.idc_address"  autocomplete="off" ></el-input>
+      </el-form-item>
+     <el-form-item label="机房描述"  :label-width="formLabelWidth" >
+        <el-input type='text'  size='mini' v-model="editform.idc_desc"  autocomplete="off" ></el-input>
+      </el-form-item>
 
-      </el-form-item>
-      <el-form-item label="故障描述"   :label-width="formLabelWidth">
-        <el-input   type="textarea" v-model="form.trouble_desc"  :autosize="{ minRows: 2, maxRows: 4}"></el-input>
-      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="editlogFormVisible = false">取 消</el-button>
-      <el-button type="primary" @click="ahandleEdit(form.id);  editlogFormVisible = false">确 定</el-button> <!--绑定两个事件-->
+      <el-button type="primary" @click="ahandleEdit(editform.id);  editlogFormVisible = false">确 定</el-button> <!--绑定两个事件-->
     </div>
   </el-dialog>
 
@@ -145,29 +189,34 @@
 
 <script>
 import   qs from 'qs'
-import { queryTroubles } from '../../api/api';
 
   export default {
-    name: "probleminfo",
+    name: "suppliers",
     data () {
       return {
-        editform:{
-         trouble_name: "",
-         trouble_influence: '0',
-         trouble_desc:'',
+        addform:{
+         factory_name: "",
+         factory_address: '',
+         factory_category:'',
+         factory_leader:'',
+         factory_leader_phone:'',
+         factory_desc:'',
         },
-        trouble_names:[],
+        data_names:[],
         dialogFormVisible: false,
         editlogFormVisible: false,
         labelPosition: 'left',
-        formLabelWidth: '70px',
+        formLabelWidth: '90px',
         formrebootLabelWidth:'30px',
        
-        form:{
+        editform:{
           id:'',
-          trouble_name: '',
-          trouble_influence: '',
-          trouble_desc: '',
+         factory_name: "",
+         factory_address: '0',
+         factory_category:'',
+         factory_leader:'',
+         factory_leader_phone:'',
+         factory_desc:'',
         },
         filters: {
         name: ""
@@ -184,11 +233,11 @@ import { queryTroubles } from '../../api/api';
       this.getproblemData()  //页面渲染时调用获取数据的方法
     },
     methods:{
-    //获取故障列表
+    //获取机房数据
       getproblemData(){
         if(this.page.currentPage >1);
          this.page.currentPage === 1
-        this.$axios.get("http://127.0.0.1:8000/api/troubles/",{
+        this.$axios.get("http://127.0.0.1:8000/api/suppliers/",{
         params:{
         page:  this.page.currentPage,
         page_size: this.page.pageSize ,
@@ -218,14 +267,21 @@ import { queryTroubles } from '../../api/api';
         for (var i=0;i<data.results.length;i++){
           var dataobj ={
             id:data.results[i].id,
-            trouble_name:data.results[i].trouble_name,
-            trouble_influence:data.results[i].trouble_influence,
-            trouble_desc:data.results[i].trouble_desc,
+            factory_name:data.results[i].factory_name,
+            factory_address:data.results[i].factory_address,
+            factory_category:data.results[i].factory_category,
+            factory_leader:data.results[i].factory_leader,
+            factory_leader_phone:data.results[i].factory_leader_phone,
+            factory_desc:data.results[i].factory_desc,
 
           }
           finaldata.push(dataobj);
         }
-        this.trouble_names = finaldata;
+        this.data_names = finaldata;
+      },
+
+      formatdata: function (row, column) {
+        return row.factory_category == 1 ? '集成商/代理商' : row.factory_category == 0 ? '厂商' : '未知';
       },
 
       toggleSelection(rows) {
@@ -244,17 +300,16 @@ import { queryTroubles } from '../../api/api';
         console.log(row);
       },
 
-      //格式化显示是否重启
-      formatproble: function (row, column) {
-        return row.trouble_influence == 1 ? '是' : row.trouble_influence == 0 ? '否' : '未知';
-      },
-
-      //添加故障记录
+      //添加机房信息
       addinfo(){
-        this.$axios.post("http://127.0.0.1:8000/api/troubles/", {
-          trouble_name: this.editform.trouble_name,
-          trouble_influence: this.editform.trouble_influence,
-          trouble_desc: this.editform.trouble_desc,
+        this.$axios.post("http://127.0.0.1:8000/api/suppliers/", {
+           idc_name:  this.addform.idc_name,
+            idc_address:this.addform.idc_address,
+            idc_tag:this.addform.idc_tag,
+            idc_leader:this.addform.idc_leader,
+            idc_leader_phone:this.addform.idc_leader_phone,
+            idc_desc:this.addform.idc_desc,
+
         })
           .then(res => {
             if (res.status === 201){
@@ -274,7 +329,7 @@ import { queryTroubles } from '../../api/api';
         //删除故障记录
       deleteproblem(id) {
         this.$confirm("确认删除吗？",'提示',{type:'waring'}).then(()=>{
-        this.$axios.delete("http://127.0.0.1:8000/api/troubles/" + id +'/').then(res => {
+        this.$axios.delete("http://127.0.0.1:8000/api/suppliers/" + id +'/').then(res => {
           if (res.status === 204 ) {
             // 删除成功
              this.$message({message:"删除成功",type:'success'});
@@ -287,16 +342,19 @@ import { queryTroubles } from '../../api/api';
       },
 
 
-      //故障编辑信息
+      //供应商信息编辑
       editproblem(id) {
-      this.$axios.get("http://127.0.0.1:8000/api/troubles/" + id + '/').then(res => {
+      this.$axios.get("http://127.0.0.1:8000/api/suppliers/" + id + '/').then(res => {
       if (res.status === 200 ) {
             // 删除成功
-         this.form ={
+         this.editform ={
           id:res.data.id,
-          trouble_name:res.data.trouble_name ,
-          trouble_influence:res.data.trouble_influence,
-          trouble_desc:res.data.trouble_desc
+           idc_name:  res.data.idc_name,
+            idc_address:res.data.idc_address,
+            idc_tag:res.data.idc_tag,
+            idc_leader:res.data.idc_leader,
+            idc_leader_phone:res.data.idc_leader_phone,
+            idc_desc:res.data.idc_desc,
            };
         this.editlogFormVisible = true
 
@@ -310,10 +368,13 @@ import { queryTroubles } from '../../api/api';
       },
       //编辑后提交
       ahandleEdit(id){
-        this.$axios.patch("http://127.0.0.1:8000/api/troubles/" + id +'/', qs.stringify({
-          trouble_name: this.form.trouble_name,
-          trouble_influence: this.form.trouble_influence,
-          trouble_desc: this.form.trouble_desc,
+        this.$axios.patch("http://127.0.0.1:8000/api/suppliers/" + id +'/', qs.stringify({
+            idc_name:  this.editform.idc_name,
+            idc_address:this.editform.idc_address,
+            idc_tag:this.editform.idc_tag,
+            idc_leader:this.editform.idc_leader,
+            idc_leader_phone:this.editform.idc_leader_phone,
+            idc_desc:this.editform.idc_desc,
         }))
           .then(res => {
             if (res.status === 200){

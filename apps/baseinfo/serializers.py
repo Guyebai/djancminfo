@@ -38,7 +38,7 @@ class  IDCinfoSerializer(serializers.HyperlinkedModelSerializer):
         
 #厂商信息接口Servefactoryrinfo
 class  ServefactoryrSerializer(serializers.HyperlinkedModelSerializer):
-	"""厂商信息序列化"""
+	"""供应商信息序列化"""
 	class Meta:
 		model =Servefactoryrinfo
 		fields =('url',
@@ -48,6 +48,7 @@ class  ServefactoryrSerializer(serializers.HyperlinkedModelSerializer):
                  'factory_category',
                  'factory_leader',
                  'factory_leader_phone',
+		         'factory_desc',
                  )
 
 class ServerinfoSerializer(serializers.HyperlinkedModelSerializer):

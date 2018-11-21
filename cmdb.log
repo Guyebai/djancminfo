@@ -4420,3 +4420,6 @@ NotImplementedError: StringRelatedField.to_internal_value() must be implemented.
 2018-11-06 00:11:02,637 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /api/applications/
 2018-11-06 09:53:54,572 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /api/productlines/
 2018-11-06 13:58:02,661 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /favicon.ico
+2018-11-06 20:44:00,826 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /api/applications/
+2018-11-07 21:09:04,058 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /favicon.ico
+2018-11-08 21:02:36,250 WARNING  /Users/anxiang.peng/Bminfo/lib/python3.6/site-packages/django/core/handlers/base.py[line:93] Not Found: /favicon.ico

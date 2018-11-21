@@ -11,6 +11,7 @@ import   idcinfo   from  '@/views/setting/idcinfo'
 
 import   productlines  from  '@/views/setting/productlines'
 
+import  suppliers from  '@/views/common/suppliers'
 
 
 
@@ -26,16 +27,6 @@ export  default [
       },
       component:baseinfo,
       children:[
-      {
-          path: '/setting/lines',
-          name: 'lines',
-          meta: {
-            name: '产品线',
-            auth: false,
-            icon: 'el-icon-edit-outline',
-          },
-          component: productlines,
-         },
         {
           path: '/setting/apps',
           name: 'server_category',
@@ -67,6 +58,27 @@ export  default [
           },
           component: idcinfo,
          },
+         {
+          path: '/setting/lines',
+          name: 'lines',
+          meta: {
+            name: '产品线管理',
+            auth: false,
+            icon: 'el-icon-edit-outline',
+          },
+          component: productlines,
+         },
+         {
+          path: '/setting/suppliers',
+          name: 'suppliers',
+          meta: {
+            name: '供应商管理',
+            auth: false,
+            icon: 'el-icon-edit-outline',
+          },
+          component: suppliers,
+         },
+
          
 
           ]
